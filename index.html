@@ -1,0 +1,188 @@
+
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Meu Diorama</title>
+<style>
+* { box-sizing: border-box; }
+body {
+  margin: 0; font-family: Arial, sans-serif;
+  background: #f7f3e9; color: #403b32;
+}
+header { text-align: center; padding: 24px 12px 12px; }
+h1 { margin: 0 0 8px; color: #55734a; }
+main {
+  display: grid; grid-template-columns: minmax(0, 1.4fr) minmax(260px, 1fr);
+  gap: 20px; max-width: 1000px; margin: auto; padding: 16px;
+}
+#preview {
+  position: relative; overflow: hidden; aspect-ratio: 1 / 1;
+  background: #c9dfb1; border: 8px solid #b58b5b;
+  border-radius: 12px; box-shadow: 0 5px 18px #0001;
+}
+#preview::before {
+  content: ""; position: absolute; inset: 0;
+  background: repeating-linear-gradient(0deg, transparent 0 39px, #ffffff18 40px);
+}
+.ground {
+  position: absolute; bottom: 0; width: 100%; height: 34%;
+  background: #86ae65;
+}
+.house {
+  position: absolute; bottom: 29%; left: 30%; width: 40%; height: 30%;
+  background: #e9d2a1; border: 4px solid #795a40;
+}
+.roof {
+  position: absolute; left: -12%; top: -34%; width: 124%; height: 45%;
+  background: #a75f4d; border: 4px solid #795044;
+  clip-path: polygon(50% 0,100% 100%,0 100%);
+}
+.door {
+  position: absolute; bottom: 0; left: 40%; width: 22%; height: 55%;
+  background: #795a40; border: 2px solid #61432f;
+}
+.window {
+  position: absolute; top: 25%; left: 8%; width: 20%; height: 25%;
+  background: #a8dce3; border: 3px solid #795a40;
+}
+.tree {
+  position: absolute; bottom: 26%; width: 12%; height: 23%;
+}
+.tree::before {
+  content: ""; position: absolute; left: 32%; bottom: 0;
+  width: 36%; height: 45%; background: #795a40;
+}
+.tree::after {
+  content: ""; position: absolute; left: 0; top: 0;
+  width: 100%; height: 70%; border-radius: 45%;
+  background: #47794b; box-shadow: inset -8px -4px #35673d;
+}
+.tree.one { left: 12%; }
+.tree.two { right: 10%; transform: scale(1.2); }
+.flower {
+  position: absolute; bottom: 18%; font-size: clamp(18px, 4vw, 32px);
+}
+.flower.one { left: 18%; }
+.flower.two { right: 20%; }
+.sign {
+  position: absolute; bottom: 9%; left: 35%; width: 30%;
+  padding: 6px 3px; text-align: center; background: #b58b5b;
+  border: 2px solid #795a40; color: white; font-size: clamp(10px, 2vw, 16px);
+}
+.panel {
+  background: white; padding: 20px; border-radius: 12px;
+  box-shadow: 0 3px 14px #0000000c;
+}
+label { display: block; margin: 16px 0 6px; font-weight: bold; }
+select, input, button {
+  width: 100%; padding: 11px; border-radius: 8px;
+  border: 1px solid #d5d0c4; font: inherit;
+}
+button {
+  margin-top: 14px; cursor: pointer; border: 0;
+  background: #55734a; color: white; font-weight: bold;
+}
+button.secondary { background: #eee9dd; color: #403b32; }
+.note { color: #756e61; font-size: 13px; line-height: 1.5; }
+@media (max-width: 650px) {
+  main { grid-template-columns: 1fr; }
+}
+</style>
+</head>
+<body>
+<header>
+  <h1>Minha Fazendinha</h1>
+  <p>Monte seu diorama do seu jeitinho! 🌱</p>
+</header>
+<main>
+  <section>
+    <div id="preview">
+      <div class="ground"></div>
+      <div class="tree one" id="tree1"></div>
+      <div class="tree two" id="tree2"></div>
+      <div class="house" id="house">
+        <div class="roof"></div>
+        <div class="window"></div>
+        <div class="door"></div>
+      </div>
+      <div class="flower one" id="flower1">🌼</div>
+      <div class="flower two" id="flower2">🌷</div>
+      <div class="sign" id="sign">Minha Fazenda</div>
+    </div>
+    <p class="note">Prévia demonstrativa: vamos trocar estes desenhos pelos seus PNGs depois.</p>
+  </section>
+  <section class="panel">
+    <h2>Personalize seu diorama</h2>
+    <label for="farm">Nome da fazenda</label>
+    <input id="farm" maxlength="24" value="Minha Fazenda">
+    <label for="season">Estação</label>
+    <select id="season">
+      <option value="spring">Primavera 🌸</option>
+      <option value="summer">Verão ☀️</option>
+      <option value="fall">Outono 🍂</option>
+      <option value="winter">Inverno ❄️</option>
+    </select>
+    <label for="houseChoice">Casa</label>
+    <select id="houseChoice">
+      <option value="normal">Casa clássica</option>
+      <option value="blue">Casa azul</option>
+      <option value="pink">Casa rosa</option>
+    </select>
+    <label for="trees">Árvores</label>
+    <select id="trees">
+      <option value="two">Duas árvores</option>
+      <option value="one">Uma árvore</option>
+      <option value="none">Sem árvores</option>
+    </select>
+    <label for="flowers">Flores</label>
+    <select id="flowers">
+      <option value="both">Duas flores</option>
+      <option value="one">Uma flor</option>
+      <option value="none">Sem flores</option>
+    </select>
+    <button id="download">Baixar prévia em PNG</button>
+    <p class="note">Esta primeira versão usa desenhos de demonstração. A exportação será ativada na próxima etapa.</p>
+  </section>
+</main>
+<script>
+const $ = id => document.getElementById(id);
+$('farm').addEventListener('input', () => {
+  $('sign').textContent = $('farm').value || 'Minha Fazenda';
+});
+$('season').addEventListener('change', () => {
+  const colors = {
+    spring: ['#c9dfb1','#86ae65'],
+    summer: ['#f3dfa0','#b6c96b'],
+    fall: ['#e9c49b','#bd8755'],
+    winter: ['#d9e6ed','#aabfca']
+  };
+  const c = colors[$('season').value];
+  $('preview').style.background = c[0];
+  document.querySelector('.ground').style.background = c[1];
+});
+$('houseChoice').addEventListener('change', () => {
+  const colors = {
+    normal: ['#e9d2a1','#a75f4d'],
+    blue: ['#b8d5df','#527eaa'],
+    pink: ['#f0c4c8','#b9667c']
+  };
+  const c = colors[$('houseChoice').value];
+  $('house').style.background = c[0];
+  document.querySelector('.roof').style.background = c[1];
+});
+$('trees').addEventListener('change', () => {
+  $('tree1').style.display = $('trees').value === 'none' ? 'none' : 'block';
+  $('tree2').style.display = $('trees').value === 'two' ? 'block' : 'none';
+});
+$('flowers').addEventListener('change', () => {
+  $('flower1').style.display = $('flowers').value === 'none' ? 'none' : 'block';
+  $('flower2').style.display = $('flowers').value === 'both' ? 'block' : 'none';
+});
+$('download').addEventListener('click', () => {
+  alert('Na próxima etapa vamos ativar o download da prévia em PNG.');
+});
+</script>
+</body>
+</html>
